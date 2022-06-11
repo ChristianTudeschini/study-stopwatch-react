@@ -1,29 +1,11 @@
-import React, { useState } from "react";
 import Task from "./Task/Task";
 import style from "./list.module.scss";
+import { TasksInterface } from "../../types/TasksInterface";
 
-export default function List() {
-  const [tasks, setTasks] = useState([
-    {
-      name: 'React',
-      time: '01:00:00',
-    },
-    {
-      name: 'React Native',
-      time: '00:30:00',
-    },
-  ]);
-
+export default function List({ tasks }: { tasks: Array<TasksInterface> }) {
   return (
     <aside className={style.listTasks}>
-      <h2 onClick={() => {
-        setTasks([...tasks, {
-          name: 'Node.js',
-          time: '01:00:00',
-        }]);
-      }}>
-        Lista de estudos
-      </h2>
+      <h2>Lista de estudos</h2>
       <ul>
       {tasks.map((task, index) => (
         <Task 

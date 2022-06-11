@@ -1,8 +1,12 @@
 import React from "react";
+import { TasksInterface } from "../../types/TasksInterface";
 import Button from "../Button/Button";
 import style from "./form.module.scss";
 
-class Form extends React.Component {
+class Form extends React.Component<{
+  setTasks: React.Dispatch<React.SetStateAction<TasksInterface[]>>
+}>
+{
   state = {
     task: "",
     time: "00:00:00",
@@ -10,7 +14,7 @@ class Form extends React.Component {
 
   addTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(this.state);
+    this.props.setTasks(oldTasks => [...oldTasks, { ...this.state }])
   }
 
   render() {
@@ -18,7 +22,7 @@ class Form extends React.Component {
       <form className={style.newTask} onSubmit={this.addTask.bind(this)}>
         <div className={style.inputContainer}>
           <label htmlFor="tarefa">Adicione um novo estudo</label>
-          <input 
+          <input
             id="task"
             name="task"
             onChange={event => this.setState({ ...this.state, task: event.target.value })}
@@ -40,10 +44,10 @@ class Form extends React.Component {
             type="time" required
           />
         </div>
-        <Button>
+        <Button type="submit">
           Adicionar
         </Button>
-      </form>
+      </form >
     );
   }
 }
